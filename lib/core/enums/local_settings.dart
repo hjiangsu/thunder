@@ -13,7 +13,8 @@ enum LocalSettingsCategories {
   about('About'),
   debug('Debug'),
   theming('Theming'),
-  videoPlayer('Video Player');
+  videoPlayer('Video Player'),
+  appearance('Appearance');
 
   final String value;
 
@@ -69,6 +70,25 @@ enum LocalSettingsSubCategories {
 }
 
 enum LocalSettings {
+  /// -------------------------- Setting entries which allow searching for top-level settings pages --------------------------
+  settingsPageGeneral(name: 'settings_page_general', key: 'settingsPageGeneral', category: LocalSettingsCategories.general, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageFilters(name: 'settings_page_filters', key: 'settingsPageFilters', category: LocalSettingsCategories.filters, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageAppearance(name: 'settings_page_appearance', key: 'settingsPageAppearance', category: LocalSettingsCategories.appearance, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageGestures(name: 'settings_page_gestures', key: 'settingsPageGestures', category: LocalSettingsCategories.gestures, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageVideo(name: 'settings_page_video', key: 'settingsPageVideo', category: LocalSettingsCategories.videoPlayer, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageFloatingActionButton(
+      name: 'settings_page_floating_action_button',
+      key: 'settingsPageFloatingActionButton',
+      category: LocalSettingsCategories.floatingActionButton,
+      subCategory: LocalSettingsSubCategories.general,
+      isPage: true),
+  settingsPageAccessibility(
+      name: 'settings_page_accessibility', key: 'settingsPageAccessibility', category: LocalSettingsCategories.accessibility, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageAccount(name: 'settings_page_account', key: 'settingsPageAccount', category: LocalSettingsCategories.account, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageUserLabels(name: 'settings_page_user_labels', key: 'settingsPageUserLabels', category: LocalSettingsCategories.userLabels, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageAbout(name: 'settings_page_about', key: 'settingsPageAbout', category: LocalSettingsCategories.about, subCategory: LocalSettingsSubCategories.general, isPage: true),
+  settingsPageDebug(name: 'settings_page_debug', key: 'settingsPageDebug', category: LocalSettingsCategories.debug, subCategory: LocalSettingsSubCategories.general, isPage: true),
+
   /// -------------------------- Account Settings --------------------------
   // Discussion Languages
   discussionLanguages(name: 'account_discussion_languages', key: 'discussionLanguages', category: LocalSettingsCategories.account, subCategory: LocalSettingsSubCategories.contentManagement),
@@ -379,6 +399,7 @@ enum LocalSettings {
     required this.subCategory,
     required this.key,
     this.searchable = true,
+    this.isPage = false,
   });
 
   /// The name of the setting as stored in local preferences
@@ -398,6 +419,9 @@ enum LocalSettings {
   /// Whether this setting should appear as a search result
   final bool searchable;
 
+  /// Whether this settings entry represents a whole page of settings
+  final bool isPage;
+
   /// Defines the settings that are excluded from import/export
   static List<LocalSettings> importExportExcludedSettings = [
     LocalSettings.currentAnonymousInstance,
@@ -408,6 +432,17 @@ enum LocalSettings {
 extension LocalizationExt on AppLocalizations {
   String getLocalSettingLocalization(String key) {
     Map<String, String> localizationMap = {
+      'settingsPageDebug': settingsPageDebug,
+      'settingsPageAbout': settingsPageAbout,
+      'settingsPageUserLabels': settingsPageUserLabels,
+      'settingsPageAccount': settingsPageAccount,
+      'settingsPageAccessibility': settingsPageAccessibility,
+      'settingsPageFloatingActionButton': settingsPageFloatingActionButton,
+      'settingsPageVideo': settingsPageVideo,
+      'settingsPageGestures': settingsPageGestures,
+      'settingsPageAppearance': settingsPageAppearance,
+      'settingsPageFilters': settingsPageFilters,
+      'settingsPageGeneral': settingsPageGeneral,
       'defaultFeedType': defaultFeedType,
       'defaultFeedSortType': defaultFeedSortType,
       'hideNsfwPostsFromFeed': hideNsfwPostsFromFeed,

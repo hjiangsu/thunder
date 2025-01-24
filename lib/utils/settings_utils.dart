@@ -8,6 +8,8 @@ import 'package:thunder/account/bloc/account_bloc.dart';
 import 'package:thunder/core/auth/bloc/auth_bloc.dart';
 import 'package:thunder/core/enums/local_settings.dart';
 import 'package:thunder/settings/pages/about_settings_page.dart';
+import 'package:thunder/settings/pages/accessibility_settings_page.dart';
+import 'package:thunder/settings/pages/appearance_settings_page.dart';
 import 'package:thunder/settings/pages/comment_appearance_settings_page.dart';
 import 'package:thunder/settings/pages/debug_settings_page.dart';
 import 'package:thunder/settings/pages/filter_settings_page.dart';
@@ -15,6 +17,7 @@ import 'package:thunder/settings/pages/general_settings_page.dart';
 import 'package:thunder/settings/pages/gesture_settings_page.dart';
 import 'package:thunder/settings/pages/post_appearance_settings_page.dart';
 import 'package:thunder/settings/pages/theme_settings_page.dart';
+import 'package:thunder/settings/pages/user_labels_settings_page.dart';
 import 'package:thunder/settings/pages/video_player_settings.dart';
 import 'package:thunder/shared/snackbar.dart';
 import 'package:thunder/thunder/bloc/thunder_bloc.dart';
@@ -38,6 +41,7 @@ void navigateToSetting(BuildContext context, LocalSettings setting) {
         LocalSettingsCategories.debug: SETTINGS_DEBUG_PAGE,
         LocalSettingsCategories.about: SETTINGS_ABOUT_PAGE,
         LocalSettingsCategories.videoPlayer: SETTINGS_VIDEO_PAGE,
+        LocalSettingsCategories.appearance: SETTINGS_APPEARANCE_PAGE,
       }[setting.category] ??
       SETTINGS_GENERAL_PAGE;
 
@@ -86,6 +90,9 @@ void navigateToSetting(BuildContext context, LocalSettings setting) {
             SETTINGS_APPEARANCE_THEMES_PAGE => ThemeSettingsPage(settingToHighlight: setting),
             SETTINGS_DEBUG_PAGE => DebugSettingsPage(settingToHighlight: setting),
             SETTINGS_VIDEO_PAGE => VideoPlayerSettingsPage(settingToHighlight: setting),
+            SETTINGS_USER_LABELS_PAGE => UserLabelSettingsPage(settingToHighlight: setting),
+            SETTINGS_ACCESSIBILITY_PAGE => AccessibilitySettingsPage(settingToHighlight: setting),
+            SETTINGS_APPEARANCE_PAGE => AppearanceSettingsPage(settingToHighlight: setting),
             _ => Container(),
           },
         ),

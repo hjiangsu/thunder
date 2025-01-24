@@ -102,8 +102,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     return List<ListTile>.generate(
                       localSettings.length,
                       (index) => ListTile(
-                        subtitle: Text(
-                            "${l10n.getLocalSettingLocalization(localSettings[index].category.toString())}${' > ${l10n.getLocalSettingLocalization(localSettings[index].subCategory.toString())}'}"),
+                        subtitle: Text(localSettings[index].isPage
+                            ? l10n.settingsPage
+                            : "${l10n.getLocalSettingLocalization(localSettings[index].category.toString())}${' > ${l10n.getLocalSettingLocalization(localSettings[index].subCategory.toString())}'}"),
                         onTap: () {
                           controller.closeView(null);
                           controller.clear();

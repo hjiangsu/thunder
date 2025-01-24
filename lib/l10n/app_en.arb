@@ -2137,6 +2137,54 @@
   "@settingsNotImportedSuccessfully": {
     "description": "Message shown to the user when the settings were imported unsuccessfully"
   },
+  "settingsPage": "Settings Page",
+  "@settingsPage": {
+    "description": "Settings page subtitle for search results"
+  },
+  "settingsPageAbout": "About",
+  "@settingsPageAbout": {
+    "description": "About settings page"
+  },
+  "settingsPageAccessibility": "Accessibility",
+  "@settingsPageAccessibility": {
+    "description": "Accessibility settings page"
+  },
+  "settingsPageAccount": "Account",
+  "@settingsPageAccount": {
+    "description": "Account settings page"
+  },
+  "settingsPageAppearance": "Appearance",
+  "@settingsPageAppearance": {
+    "description": "Appearance settings page"
+  },
+  "settingsPageDebug": "Debug",
+  "@settingsPageDebug": {
+    "description": "Debug settings page"
+  },
+  "settingsPageFilters": "Filters",
+  "@settingsPageFilters": {
+    "description": "Filters settings page"
+  },
+  "settingsPageFloatingActionButton": "Floating Action Button",
+  "@settingsPageFloatingActionButton": {
+    "description": "Floating action button settings page"
+  },
+  "settingsPageGeneral": "General",
+  "@settingsPageGeneral": {
+    "description": "General settings page"
+  },
+  "settingsPageGestures": "Gestures",
+  "@settingsPageGestures": {
+    "description": "Gestures settings page"
+  },
+  "settingsPageUserLabels": "User Labels",
+  "@settingsPageUserLabels": {
+    "description": "User labels settings page"
+  },
+  "settingsPageVideo": "Video",
+  "@settingsPageVideo": {
+    "description": "Video settings page"
+  },
   "share": "Share",
   "@share": {},
   "shareComment": "Share Comment Link",

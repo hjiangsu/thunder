@@ -31,7 +31,6 @@ const List<String> instances = [
   'lemmy.sdf.org',
   'lemmy.today',
   'lemmy.world',
-  'lemmy.wtf',
   'lemmy.zip',
   'lemmygrad.ml',
   'lemmynsfw.com',

@@ -2439,9 +2439,9 @@
   "@systemDarkMode": {
     "description": "Setting which toggles the dark theme type when the system theme is selected"
   },
-  "systemDarkModeDescription": "Enable pure black theme in system dark mode",
+  "systemDarkModeDescription": "Enable pure black theme for dark mode",
   "@systemDarkModeDescription": {
-    "description": "Toggle which enables the pure black theme when using system theme, and is using the dark mode version"
+    "description": "Toggle which enables the pure black theme when dark mode is selected"
   },
   "tabletMode": "Tablet Mode (2-column view)",
   "@tabletMode": {

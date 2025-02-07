@@ -38,7 +38,7 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
   /// -------------------------- Theme Related Settings --------------------------
   // Theme Settings
   ThemeType themeType = ThemeType.system;
-  bool useSystemBlackTheme = false;
+  bool usePureBlackTheme = false;
   bool useMaterialYouTheme = false;
   CustomThemeType selectedTheme = CustomThemeType.deepBlue;
 
@@ -116,9 +116,9 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
         if (context.mounted) context.read<ThemeBloc>().add(ThemeChangeEvent());
         Future.delayed(const Duration(milliseconds: 300), () => _initFontScaleOptions()); // Refresh the font scale options since the textTheme has most likely changed (dark -> light and vice versa)
         break;
-      case LocalSettings.systemThemePureBlack:
-        await prefs.setBool(LocalSettings.systemThemePureBlack.name, value);
-        setState(() => useSystemBlackTheme = value);
+      case LocalSettings.usePureBlackTheme:
+        await prefs.setBool(LocalSettings.usePureBlackTheme.name, value);
+        setState(() => usePureBlackTheme = value);
         if (context.mounted) context.read<ThemeBloc>().add(ThemeChangeEvent());
         break;
       case LocalSettings.appThemeAccentColor:
@@ -243,7 +243,7 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
       /// -------------------------- Theme Related Settings --------------------------
       // Theme Settings
       themeType = ThemeType.values[prefs.getInt(LocalSettings.appTheme.name) ?? ThemeType.system.index];
-      useSystemBlackTheme = prefs.getBool(LocalSettings.systemThemePureBlack.name) ?? false;
+      usePureBlackTheme = prefs.getBool(LocalSettings.usePureBlackTheme.name) ?? false;
       selectedTheme = CustomThemeType.values.byName(prefs.getString(LocalSettings.appThemeAccentColor.name) ?? CustomThemeType.deepBlue.name);
       useMaterialYouTheme = prefs.getBool(LocalSettings.useMaterialYouTheme.name) ?? false;
 
@@ -306,7 +306,6 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
       ListPickerItem(icon: Icons.phonelink_setup_rounded, label: l10n.system, payload: ThemeType.system),
       ListPickerItem(icon: Icons.light_mode_rounded, label: l10n.light, payload: ThemeType.light),
       ListPickerItem(icon: Icons.dark_mode_outlined, label: l10n.dark, payload: ThemeType.dark),
-      ListPickerItem(icon: Icons.dark_mode, label: l10n.pureBlack, payload: ThemeType.pureBlack)
     ];
 
     WidgetsBinding.instance.addPostFrameCallback((_) => _initPreferences());
@@ -373,18 +372,17 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
                         AnimatedSize(
                           duration: const Duration(milliseconds: 250),
                           curve: Curves.easeInOutCubicEmphasized,
-                          child: themeType == ThemeType.system
+                          child: themeType == ThemeType.dark || themeType == ThemeType.system
                               ? ToggleOption(
-                                  description: l10n.systemDarkMode,
+                                  description: l10n.pureBlack,
                                   subtitle: l10n.systemDarkModeDescription,
-                                  value: useSystemBlackTheme,
+                                  value: usePureBlackTheme,
                                   iconEnabled: Icons.dark_mode_rounded,
                                   iconDisabled: Icons.dark_mode_outlined,
-                                  onToggle: (bool value) => setPreferences(LocalSettings.systemThemePureBlack, value),
+                                  onToggle: (bool value) => setPreferences(LocalSettings.usePureBlackTheme, value),
                                   highlightKey: settingToHighlightKey,
-                                  setting: LocalSettings.systemThemePureBlack,
+                                  setting: LocalSettings.usePureBlackTheme,
                                   highlightedSetting: settingToHighlight,
-                                  disabled: themeType != ThemeType.system,
                                 )
                               : Container(),
                         ),

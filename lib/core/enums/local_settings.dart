@@ -199,7 +199,7 @@ enum LocalSettings {
   /// -------------------------- Theme Related Settings --------------------------
   // Theme Settings
   appTheme(name: 'setting_theme_app_theme', key: 'theme', category: LocalSettingsCategories.theming, subCategory: LocalSettingsSubCategories.theme),
-  systemThemePureBlack(name: 'setting_theme_system_pure_black', key: 'systemThemePureBlack', category: LocalSettingsCategories.theming, subCategory: LocalSettingsSubCategories.theme),
+  usePureBlackTheme(name: 'setting_theme_system_pure_black', key: 'systemThemePureBlack', category: LocalSettingsCategories.theming, subCategory: LocalSettingsSubCategories.theme),
   appThemeAccentColor(name: 'setting_theme_custom_app_theme', key: 'themeAccentColor', category: LocalSettingsCategories.theming, subCategory: LocalSettingsSubCategories.theme),
   useMaterialYouTheme(name: 'setting_theme_use_material_you', key: 'useMaterialYouTheme', category: LocalSettingsCategories.theming, subCategory: LocalSettingsSubCategories.theme),
 

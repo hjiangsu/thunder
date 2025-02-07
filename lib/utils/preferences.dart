@@ -10,6 +10,7 @@ import 'package:thunder/community/pages/create_post_page.dart';
 import 'package:thunder/core/enums/browser_mode.dart';
 import 'package:thunder/core/enums/full_name.dart';
 import 'package:thunder/core/enums/local_settings.dart';
+import 'package:thunder/core/enums/theme_type.dart';
 import 'package:thunder/drafts/draft_type.dart';
 import 'package:thunder/notification/enums/notification_type.dart';
 import 'package:thunder/core/singletons/preferences.dart';
@@ -128,5 +129,12 @@ Future<void> performSharedPreferencesMigration() async {
     prefs.remove('setting_anonymous_instances');
   } catch (e) {
     debugPrint('Cannot migrate anonymous instances from SharedPreferences: $e');
+  }
+
+  // Migrate theme settings for pure black to use dark theme + pure black setting
+  ThemeType themeType = ThemeType.values[prefs.getInt(LocalSettings.appTheme.name) ?? ThemeType.system.index];
+  if (themeType == ThemeType.pureBlack) {
+    await prefs.setInt(LocalSettings.appTheme.name, ThemeType.dark.index);
+    await prefs.setBool(LocalSettings.usePureBlackTheme.name, true);
   }
 }

@@ -35,26 +35,22 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
       SharedPreferences prefs = (await UserPreferences.instance).sharedPreferences;
 
+      // Fetch the ThemeType from preferences (system, light, dark)
       ThemeType themeType = ThemeType.values[prefs.getInt(LocalSettings.appTheme.name) ?? ThemeType.system.index];
+      Brightness brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
+
+      // Check if the user has selected to use a pure black theme, if so override the themeType to pureBlack
+      bool usePureBlackTheme = prefs.getBool(LocalSettings.usePureBlackTheme.name) ?? false;
+      if (usePureBlackTheme && (themeType == ThemeType.dark || (themeType == ThemeType.system && brightness == Brightness.dark))) themeType = ThemeType.pureBlack;
+
+      bool useDarkTheme = themeType == ThemeType.dark || themeType == ThemeType.pureBlack;
+
       CustomThemeType selectedTheme = CustomThemeType.values.byName(prefs.getString(LocalSettings.appThemeAccentColor.name) ?? CustomThemeType.deepBlue.name);
 
-      bool useSystemThemePureBlack = prefs.getBool(LocalSettings.systemThemePureBlack.name) ?? false;
       bool useMaterialYouTheme = prefs.getBool(LocalSettings.useMaterialYouTheme.name) ?? false;
 
       // Fetch reduce animations preferences to remove overscrolling effects
       bool reduceAnimations = prefs.getBool(LocalSettings.reduceAnimations.name) ?? false;
-
-      // Check what the system theme is (light/dark)
-      Brightness brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
-      bool useDarkTheme = themeType != ThemeType.light;
-
-      if (themeType == ThemeType.system) {
-        useDarkTheme = brightness == Brightness.dark;
-      }
-
-      if (themeType == ThemeType.system && useSystemThemePureBlack && useDarkTheme) {
-        themeType = ThemeType.pureBlack;
-      }
 
       return emit(
         state.copyWith(

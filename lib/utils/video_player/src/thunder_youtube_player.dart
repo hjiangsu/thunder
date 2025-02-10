@@ -24,17 +24,28 @@ class ThunderYoutubePlayer extends StatefulWidget {
 }
 
 class _ThunderYoutubePlayerState extends State<ThunderYoutubePlayer> with SingleTickerProviderStateMixin {
+  /// Whether or not the video is muted.
+  bool muted = false;
+
   late YoutubePlayerController _controller;
   late ypf.YoutubePlayerController _ypfController;
 
-  /// Whether or not the video is muted.
-  bool muted = false;
+  @override
+  void dispose() {
+    if (Platform.isAndroid || Platform.isIOS) {
+      _ypfController.dispose();
+    } else {
+      _controller.close();
+    }
+    super.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
 
     final state = context.read<ThunderBloc>().state;
+    final timestamp = extractYouTubeTimestamp();
 
     if (Platform.isAndroid || Platform.isIOS) {
       _ypfController = ypf.YoutubePlayerController(
@@ -44,10 +55,12 @@ class _ThunderYoutubePlayerState extends State<ThunderYoutubePlayer> with Single
           autoPlay: autoPlayVideo(),
           enableCaption: false,
           hideControls: false,
+          startAt: timestamp ?? 0,
           loop: state.videoAutoLoop,
           mute: state.videoAutoMute,
         ),
       )..setPlaybackRate(state.videoDefaultPlaybackSpeed.value);
+
       if (state.videoAutoFullscreen) _ypfController.toggleFullScreenMode();
     } else {
       _controller = YoutubePlayerController(
@@ -60,20 +73,11 @@ class _ThunderYoutubePlayerState extends State<ThunderYoutubePlayer> with Single
       );
       _controller
         ..loadVideoById(videoId: ypf.YoutubePlayer.convertUrlToId(widget.videoUrl)!)
+        ..seekTo(seconds: double.parse('$timestamp'))
         ..setPlaybackRate(state.videoDefaultPlaybackSpeed.value);
     }
 
     setState(() => muted = state.videoAutoMute);
-  }
-
-  @override
-  void dispose() {
-    if (Platform.isAndroid || Platform.isIOS) {
-      _ypfController.dispose();
-    } else {
-      _controller.close();
-    }
-    super.dispose();
   }
 
   bool autoPlayVideo() {
@@ -87,6 +91,40 @@ class _ThunderYoutubePlayerState extends State<ThunderYoutubePlayer> with Single
     }
 
     return false;
+  }
+
+  int? extractYouTubeTimestamp() {
+    final uri = Uri.parse(widget.videoUrl);
+
+    // Check for timestamp in query parameters
+    String? timeParam = uri.queryParameters['t'] ?? uri.queryParameters['start'];
+
+    // Check for embedded timestamps like t=1m30s
+    final regex = RegExp(r't=(\d+h)?(\d+m)?(\d+s)?');
+
+    if (timeParam != null) {
+      return _convertTimeStringToSeconds(timeParam);
+    } else if (regex.hasMatch(widget.videoUrl)) {
+      final match = regex.firstMatch(widget.videoUrl)!;
+      return _convertTimeComponentsToSeconds(match);
+    }
+
+    return null;
+  }
+
+  int _convertTimeStringToSeconds(String time) {
+    final regex = RegExp(r'(\d+h)?(\d+m)?(\d+s)?');
+    final match = regex.firstMatch(time);
+
+    return match != null ? _convertTimeComponentsToSeconds(match) : 0;
+  }
+
+  int _convertTimeComponentsToSeconds(RegExpMatch match) {
+    int hours = match.group(1) != null ? int.parse(match.group(1)!.replaceAll('h', '')) : 0;
+    int minutes = match.group(2) != null ? int.parse(match.group(2)!.replaceAll('m', '')) : 0;
+    int seconds = match.group(3) != null ? int.parse(match.group(3)!.replaceAll('s', '')) : 0;
+
+    return hours * 3600 + minutes * 60 + seconds;
   }
 
   @override

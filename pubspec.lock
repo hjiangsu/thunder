@@ -350,6 +350,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.17.3"
+  cupertino_icons:
+    dependency: transitive
+    description:
+      name: cupertino_icons
+      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
   dart_ping:
     dependency: "direct main"
     description:
@@ -1464,23 +1472,42 @@ packages:
   push:
     dependency: "direct main"
     description:
-      path: "packages/push/push"
-      relative: true
-    source: path
+      name: push
+      sha256: "9fd6dce70b4755e525dd21dd753e4130c5c70bc155558207f39eb0a1aa2647c7"
+      url: "https://pub.dev"
+    source: hosted
     version: "2.3.0"
+  push_android:
+    dependency: transitive
+    description:
+      name: push_android
+      sha256: c7df90971ef0b8f5c7acc5eb5b8dc474742b1eaefaf921c6cbb244d0e2da6ffb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.0"
   push_ios:
     dependency: transitive
     description:
-      path: "packages/push/push_ios"
-      relative: true
-    source: path
+      name: push_ios
+      sha256: "3d8b0ce1b0a29b20a17a7ca3d17f9ae19707cdd20c168d345b27cd00a4983826"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.5.1"
+  push_macos:
+    dependency: transitive
+    description:
+      name: push_macos
+      sha256: "800997d1d6ca19aa957ab237a25074a732a7e36ef917ef4546fc75ec9aa1b9da"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   push_platform_interface:
     dependency: transitive
     description:
-      path: "packages/push/push_platform_interface"
-      relative: true
-    source: path
+      name: push_platform_interface
+      sha256: "1d45f9dfa8f26251d4c8efb733740debb91f9184fc5d05e83cc359331ef1879f"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.6.0"
   recase:
     dependency: transitive
